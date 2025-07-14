@@ -1,0 +1,4 @@
+learn/
+recog/
+*.pyc
+.DS_Store
