@@ -13,7 +13,7 @@ This is an implementation of RFF-GP-HSMM, which introduces Random Fourier Featur
 ```
 [PDF]()
 
-## 実行方法
+## Usage
 ```
 python main.py
 ```
