@@ -17,3 +17,17 @@ This is an implementation of RFF-GP-HSMM, which introduces Random Fourier Featur
 ```
 python main.py
 ```
+
+## Output Files
+
+When executed, the following files and directories will be created in the specified folder:
+
+| File Name| Description |
+| ---- | --- |
+| class{c}.npy         | A collection of segments classified into class c                                                              |
+| class{c}\_dim{d}.png | Plot of the d-th dimension of segments classified into class c                                                |
+| class{c}/gp{d}/      | Parameters of RFF and Bayesian linear regression for the d-th dimension of class c                            |
+| segm{n}.txt          | Segmentation result of the n-th sequence. Column 1: segment class, Column 2: flag indicating segment boundary |
+| trans\_bos.npy       | Probability that each class appears at the beginning of a sequence                                            |
+| trans\_eos.npy       | Probability that each class appears at the end of a sequence                                                  |
+| trans.npy            | Transition probabilities of each class appearing after a given class                                          |

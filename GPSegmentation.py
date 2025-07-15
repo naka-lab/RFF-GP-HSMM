@@ -75,7 +75,7 @@ class GPSegmentation():
             #filename = basename + "class%03d.npy" % c
             #self.segm_in_class[c] = np.load( filename, allow_pickle=True)
             #self.update_gp( c )
-            self.gps[c].load_model( basename+"gp%03d" % c )
+            self.gps[c].load_model( basename+"class%03d" % c )
 
         # 遷移確率更新
         self.trans_prob = np.load( basename+"trans.npy", allow_pickle=True )
@@ -151,7 +151,8 @@ class GPSegmentation():
                         plt.plot( range(len(data)), data, "o-" )
                     else:
                         plt.plot( range(len(data[:,d])), data[:,d], "o-" )
-                    plt.ylim( -1, 1 )
+                    max_v = np.max( np.abs(data[:,d]) )
+                    plt.ylim( -max_v, max_v )
                 plt.savefig( basename+"class%03d_dim%03d.png" % (c, d) )
 
         # テキストでも保存
@@ -161,7 +162,7 @@ class GPSegmentation():
 
         for c in range(self.numclass):
             np.save( basename+"class%03d.npy" % c, np.array(self.segm_in_class[c], dtype=object) )
-            self.gps[c].save_model( basename+"gp%03d" % c )
+            self.gps[c].save_model( basename+"class%03d" % c )
 
     def calc_vitervi_path(self, d ):
         T = len(d)
