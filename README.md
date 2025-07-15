@@ -13,10 +13,31 @@ This is an implementation of RFF-GP-HSMM, which introduces Random Fourier Featur
 ```
 [PDF]()
 
-## Usage
+## How to Run
 ```
 python main.py
 ```
+
+Programs written in Cython will be automatically compiled at runtime.
+If you encounter compilation errors with the Visual Studio compiler on Windows, please edit:
+
+```
+(Python installation directory)/Lib/distutils/msvc9compiler.py
+```
+
+Inside the `get_build_version()` function, replace the following line:
+
+```
+majorVersion = int(s[:-2]) - 6
+```
+
+with the version number of the Visual Studio you wish to use.
+For example, for VS2012, set:
+
+```
+majorVersion = 11
+```
+
 
 ## Output Files
 
