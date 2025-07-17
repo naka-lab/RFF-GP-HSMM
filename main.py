@@ -4,7 +4,7 @@ import time
 
 
 def learn( savedir ):
-    gpsegm = GPSegmentation(8, 11, min_max_ave_len=(15,20,30), num_rff_features=20)
+    gpsegm = GPSegmentation(8, 11, min_max_ave_len=(15,20,30))
     files = [ f"data{i:03}.txt" for i in range(3) ]*5
     gpsegm.load_data( files )
 
@@ -26,7 +26,7 @@ def learn( savedir ):
 
 
 def recog( modeldir, savedir ):
-    gpsegm = GPSegmentation(8, 11, min_max_ave_len=(15,20,30), num_rff_features=20)
+    gpsegm = GPSegmentation(8, 11, min_max_ave_len=(15,20,30))
     files = [ f"data{i:03}.txt" for i in range(3) ]
     gpsegm.load_data( files )
     gpsegm.load_model( modeldir )

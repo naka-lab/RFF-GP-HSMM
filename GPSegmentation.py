@@ -15,7 +15,7 @@ import GPRFF
 
 
 class GPSegmentation():
-    def __init__(self, dim, nclass, min_max_ave_len=(15,20,30), num_rff_features=20, sigma_rff=0.1, alpha_rff=1.0, beta_rff=10.0):
+    def __init__(self, dim, nclass, min_max_ave_len=(15,20,30), num_rff_features=-1, sigma_rff=0.1, alpha_rff=1.0, beta_rff=10.0):
         self.dim = dim
         self.numclass = nclass
         self.segmlen = 3

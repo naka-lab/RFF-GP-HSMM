@@ -11,12 +11,16 @@ class GP:
         self.sigma = sigma
         self.alpha = alpha
         self.beta = beta
-        
-        self.M = M
         self.D = in_dim
 
-        self.K = np.random.randn(self.D,self.M)*self.sigma
-        self.B = np.random.random(self.M)*np.pi
+        if M>0:
+            self.M = M
+            self.K = np.random.randn(self.D,self.M)*self.sigma
+            self.B = np.random.random(self.M)*np.pi
+        else:
+            self.M = 20
+            self.K = np.load("K_20.npy")
+            self.B = np.load("B_20.npy")
 
     def phi( self, xt ):
         return np.cos(np.dot(xt,self.K)+self.B) * math.sqrt(2/self.M)
