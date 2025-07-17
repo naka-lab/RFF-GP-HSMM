@@ -38,6 +38,10 @@ For example, for VS2012, set:
 majorVersion = 11
 ```
 
+## RFF Parameters
+If you specify `-1` (the default value) for the `num_rff_features` argument in `GPSegmentation`, pre-optimized parameters for the case of M=20 will be loaded.
+By using these pre-optimized parameters, relatively accurate segmentation can be achieved.
+
 
 ## Output Files
 
