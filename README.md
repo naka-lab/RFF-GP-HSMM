@@ -7,11 +7,11 @@ This is an implementation of RFF-GP-HSMM, which introduces Random Fourier Featur
 @article{saito2025scalable,
   title={Scalable Unsupervised Segmentation via Random Fourier Feature-based GP-HSMM},
   author={Issei Saito, Masatoshi Nagano, Tomoaki Nakamura, Daichi Mochihashi, Koki Mimura},
-  journal={arXiv:2507.10632},
+  journal={Annual Conference of Industrial Electronics Society},
   year={2025},
 }
 ```
-[PDF](https://arxiv.org/abs/2507.10632)
+[PDF](https://ieeexplore.ieee.org/document/11221864)
 
 ## How to Run
 ```
