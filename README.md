@@ -55,6 +55,8 @@ for _ in range(ITR):
 gpsegm.save_model("new_model/")
 ```
 
+Example: [main_increametal_learning.py](main_increametal_learning.py)
+
 Reference: 
 ```
 @article{kajiwara2025sequential,
