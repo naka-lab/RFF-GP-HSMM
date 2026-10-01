@@ -115,7 +115,7 @@ class GPSegmentation():
                 for dim in range( self.dim ):
                     mu = params[dim][0][k]
                     sig = params[dim][1][k]
-                    emission_prob_all[c, k, 0:T-k] += -math.log(math.sqrt( 2*math.pi*sig)) - (d[k:,dim]-mu)**2 / (2*sig**2)
+                    emission_prob_all[c, k, 0:T-k] += -math.log(math.sqrt( 2*math.pi*sig)) - (d[k:,dim]-mu)**2 / (2*sig)
 
         # 累積確率にする
         for k in range(1, self.max_len):

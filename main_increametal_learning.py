@@ -24,23 +24,22 @@ def test( modeldir ):
     pred_labels = np.concatenate( pred_labels )
     print( "Adjusted Rand Index:", adjusted_rand_score( labels, pred_labels ) )
 
-def learn_and_evaluate_incremental(ITR=2):
+def learn_and_evaluate(ITR=2, incremental = True):
     for i in range(0,4):
-        print(f"---- incremental training ({i}/3) ----")
         gpsegm = GPSegmentation(2, 3, min_max_ave_len=(15,20,30))
 
         if i==0:
             data_files = [ f"dataset/initial/data{i:03}.txt" for i in range(2) ]
         else:
             data_files = [ f"dataset/additional/data{i:03}.txt" for i in range((i-1)*2, i*2) ]
-            gpsegm.load_model( f"learn{i-1:03}/" )
-        print(data_files)
+            if incremental:
+                gpsegm.load_model( f"learn{i-1:03}/" )
+
         gpsegm.load_data( data_files )
 
         start = time.time()
         for it in range(ITR):
             gpsegm.learn()
-            print(f"{it+1}/{ITR}\r", end="")
         gpsegm.save_model( f"learn{i:03}/" )
 
         test( f"learn{i:03}/" )
@@ -49,7 +48,11 @@ def learn_and_evaluate_incremental(ITR=2):
 
 
 def main():
-    learn_and_evaluate_incremental()
+    print("---- non incremanetal learning  ----")
+    learn_and_evaluate(1, incremental=False)
+
+    print("---- incremental learning  ----")
+    learn_and_evaluate(1, incremental=True)
     return
 
 if __name__=="__main__":
