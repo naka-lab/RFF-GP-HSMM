@@ -55,6 +55,19 @@ for _ in range(ITR):
 gpsegm.save_model("new_model/")
 ```
 
+Reference: 
+```
+@article{kajiwara2025sequential,
+  title={Sequential Unsupervised Motion Segmentation for Skill Evaluation and Comparison},
+  author={Ken Kajiwara and Issei Saito and Tomoaki Nakamura and Daichi Mochihashi and Koki Mimura},
+  journal={IEEE Access},
+  volume={13},
+  pages={218055--218065},
+  year={2025},
+  publisher={IEEE}
+}
+```
+
 ## Output Files
 
 When executed, the following files and directories will be created in the specified folder:
