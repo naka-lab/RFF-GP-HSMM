@@ -22,6 +22,13 @@ class GP:
             self.K = np.load("K_20.npy")
             self.B = np.load("B_20.npy")
 
+        self.S0_inv = self.alpha * np.eye(self.M)
+        self.S0 = np.linalg.inv(self.S0_inv)
+        self.mu0 = np.zeros((self.M, 1))
+        self.S = self.S0
+        self.mu = self.mu0
+
+
     def phi( self, xt ):
         return np.cos(np.dot(xt,self.K)+self.B) * math.sqrt(2/self.M)
 
@@ -39,11 +46,14 @@ class GP:
 
         # ベイズ線形回帰
         if S is None:
-            self.S = np.linalg.inv(self.alpha * np.eye(self.M) + self.beta * np.dot(feat.T, feat))
+            self.S = np.linalg.inv(self.S0_inv + self.beta * feat.T @ feat)
         else:
             self.S = S
 
-        self.mu = self.beta * np.dot(self.S, np.dot(feat.T, yt))
+        if feat.shape[0]!=0:
+            self.mu =self.S @ (self.beta*feat.T@yt + self.S0_inv@self.mu0)
+        else:
+            self.mu = self.mu0
 
         return feat, self.S
 
@@ -70,9 +80,13 @@ class GP:
     def load_model(self, dir ):
         self.K = np.load( os.path.join(dir, "K.npy") )
         self.B = np.load( os.path.join(dir, "B.npy") )
-        self.S = np.load( os.path.join(dir, "S.npy") )
-        self.mu = np.load( os.path.join(dir, "mu.npy") )
+        self.S0 = np.load( os.path.join(dir, "S.npy") )
+        self.mu0 = np.load( os.path.join(dir, "mu.npy") )
         self.alpha, self.beta, self.sigma = np.load( os.path.join(dir, "alpha_beta_sigma.npy") )
+        self.S0_inv = np.linalg.inv(self.S0)
+
+        self.S = self.S0
+        self.mu = self.mu0
 
 class GPMD:
     def __init__(self, dim, M, sigma, alpha, beta ):
@@ -140,9 +154,20 @@ class GPMD:
 
 
 def main():
-    g = GPMD(1, 5)
-    g.learn([],[])
-    g.plot( np.linspace(0,10,100) )
+    for i in range(10):
+        g = GPMD(1, -1, 0.1, 1.0, 10.0)
+        if i!=0:
+            g.load_model(f"test{i-1}")
+            g.learn([],[])
+        g.plot( np.linspace(0,10,100) )
+        g.learn(np.linspace(0,10,100), np.sin(np.linspace(0+i*0.1,3.14*2+i*0.1,100)) )
+        #lik = g.calc_lik( np.linspace(0,10,100), np.sin(np.linspace(0,10,100)) )
+        #print(lik)
+        g.save_model(f"test{i}")
+        plt.figure()
+        g.plot( np.linspace(0,10,100) )
+        plt.figure()
+        
     plt.show()
 
 if __name__ == '__main__':
