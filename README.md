@@ -43,6 +43,18 @@ If you specify `-1` (the default value) for the `num_rff_features` argument in `
 By using these pre-optimized parameters, relatively accurate segmentation can be achieved.
 
 
+## Incremental GP Learning
+
+Calling `learn()` after `load_model()` performs incremental learning of the GP models. The loaded posterior distributions are used as prior distributions when learning from the new data.
+
+```python
+gpsegm.load_data(new_files)
+gpsegm.load_model("old_model/")
+for _ in range(ITR):
+  gpsegm.learn()
+gpsegm.save_model("new_model/")
+```
+
 ## Output Files
 
 When executed, the following files and directories will be created in the specified folder:
